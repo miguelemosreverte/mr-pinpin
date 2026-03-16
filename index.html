@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mr. Pinpin on the Farm</title>
+    <meta
+      name="description"
+      content="An illustrated farm story featuring Mr. Pinpin and friends."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f0dd;
+        --paper: rgba(255, 250, 239, 0.82);
+        --ink: #2b1f14;
+        --muted: #705743;
+        --accent: #a55322;
+        --accent-soft: #dfb869;
+        --line: rgba(72, 43, 20, 0.14);
+        --shadow: 0 24px 70px rgba(78, 45, 18, 0.16);
+        --radius: 28px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Manrope", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top, rgba(255, 226, 159, 0.7), transparent 30%),
+          linear-gradient(180deg, #f6ebd2 0%, #f4e7ce 40%, #efe0c0 100%);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.38;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)),
+          repeating-linear-gradient(
+            90deg,
+            rgba(130, 94, 58, 0.03) 0,
+            rgba(130, 94, 58, 0.03) 1px,
+            transparent 1px,
+            transparent 16px
+          );
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 56px;
+        position: relative;
+      }
+
+      .hero,
+      .panel,
+      .strip-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+
+      .hero {
+        border-radius: calc(var(--radius) + 8px);
+        padding: 20px;
+        display: grid;
+        gap: 20px;
+      }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #6a431e;
+        background: rgba(255, 231, 178, 0.82);
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        line-height: 0.95;
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 7vw, 5.8rem);
+        max-width: 10ch;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 22px;
+        align-items: center;
+      }
+
+      .hero-copy p,
+      .section-intro p,
+      figcaption {
+        color: var(--muted);
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      .hero-copy p {
+        max-width: 56ch;
+        margin-top: 18px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 20px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 800;
+        transition: transform 160ms ease, box-shadow 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button-primary {
+        color: #fffaf0;
+        background: linear-gradient(135deg, #a35221, #7e3715);
+        box-shadow: 0 18px 36px rgba(126, 55, 21, 0.24);
+      }
+
+      .button-secondary {
+        color: var(--ink);
+        background: rgba(255, 247, 231, 0.9);
+        border: 1px solid rgba(109, 76, 44, 0.16);
+      }
+
+      .hero-visual img,
+      .strip-card img,
+      .chapter-card img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .hero-visual {
+        position: relative;
+      }
+
+      .hero-visual img {
+        border-radius: 26px;
+        aspect-ratio: 2 / 2.65;
+      }
+
+      .hero-note {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        padding: 14px 16px;
+        border-radius: 20px;
+        color: #fff8ed;
+        background: linear-gradient(180deg, rgba(47, 31, 19, 0.16), rgba(47, 31, 19, 0.72));
+      }
+
+      .hero-note strong {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+
+      .section {
+        margin-top: 28px;
+      }
+
+      .section-intro {
+        margin-bottom: 18px;
+      }
+
+      .chapter-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .chapter-card,
+      .strip-card {
+        overflow: hidden;
+        border-radius: var(--radius);
+      }
+
+      .chapter-card {
+        background: rgba(255, 250, 239, 0.76);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .chapter-card img {
+        aspect-ratio: 4 / 5;
+      }
+
+      .chapter-copy {
+        padding: 16px 16px 18px;
+      }
+
+      .chapter-copy strong {
+        display: block;
+        font-size: 1.05rem;
+        margin-bottom: 6px;
+      }
+
+      .comic-strip {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .strip-card {
+        padding: 14px;
+      }
+
+      .strip-card img {
+        border-radius: 20px;
+      }
+
+      .strip-card figcaption {
+        padding: 14px 6px 4px;
+      }
+
+      .footer {
+        padding: 24px 0 8px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 920px) {
+        .hero-grid,
+        .chapter-grid,
+        .comic-strip {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          max-width: 12ch;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          padding-top: 16px;
+        }
+
+        .hero {
+          padding: 14px;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="kicker">Illustrated Farm Story</span>
+            <h1>Mr. Pinpin on the Farm</h1>
+            <p>
+              A gentle comic-style adventure through breakfast, travel, tractor
+              rides, and harvest time. This page is built as a static site so it
+              can be published directly with GitHub Pages.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#story">Read the story</a>
+              <a
+                class="button button-secondary"
+                href="https://github.com/miguelemosreverte/mr-pinpin"
+                target="_blank"
+                rel="noreferrer"
+                >View repository</a
+              >
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img
+              src="assets/images/mr-pinpin-11.jpeg"
+              alt="Mr. Pinpin and his friend carrying a basket of vegetables on the farm."
+            />
+            <div class="hero-note">
+              <strong>Warm, playful, and ready for Pages</strong>
+              Every image is referenced with relative paths for reliable GitHub hosting.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="story">
+        <div class="section-intro">
+          <span class="kicker">Chapter Highlights</span>
+          <h2>From sunrise to harvest</h2>
+          <p>
+            The gallery below turns the image set into a clean story flow while
+            keeping the original comic artwork front and center.
+          </p>
+        </div>
+
+        <div class="chapter-grid">
+          <article class="chapter-card">
+            <img
+              src="assets/images/mr-pinpin-02.jpeg"
+              alt="The characters asleep together at the start of the day."
+              loading="lazy"
+            />
+            <div class="chapter-copy">
+              <strong>Quiet Morning</strong>
+              <figcaption>The farm day begins softly before the house wakes up.</figcaption>
+            </div>
+          </article>
+
+          <article class="chapter-card">
+            <img
+              src="assets/images/mr-pinpin-01.jpeg"
+              alt="Breakfast scene with bread, berries, and honey."
+              loading="lazy"
+            />
+            <div class="chapter-copy">
+              <strong>Breakfast Table</strong>
+              <figcaption>Fresh bread, berries, honey, and a very good mood.</figcaption>
+            </div>
+          </article>
+
+          <article class="chapter-card">
+            <img
+              src="assets/images/mr-pinpin-03.jpeg"
+              alt="The characters prepare bags and supplies for the trip."
+              loading="lazy"
+            />
+            <div class="chapter-copy">
+              <strong>Getting Ready</strong>
+              <figcaption>Supplies are packed before the journey back to the farm.</figcaption>
+            </div>
+          </article>
+
+          <article class="chapter-card">
+            <img
+              src="assets/images/mr-pinpin-05.jpeg"
+              alt="Arrival at the farm and first look at the tractor."
+              loading="lazy"
+            />
+            <div class="chapter-copy">
+              <strong>First Look</strong>
+              <figcaption>The farm opens up, and the big red tractor steals the scene.</figcaption>
+            </div>
+          </article>
+
+          <article class="chapter-card">
+            <img
+              src="assets/images/mr-pinpin-08.jpeg"
+              alt="Mr. Pinpin learning to steer the tractor."
+              loading="lazy"
+            />
+            <div class="chapter-copy">
+              <strong>Driving Lesson</strong>
+              <figcaption>Mr. Pinpin takes the wheel with a little help and a lot of joy.</figcaption>
+            </div>
+          </article>
+
+          <article class="chapter-card">
+            <img
+              src="assets/images/mr-pinpin-11.jpeg"
+              alt="Harvest basket full of fresh vegetables."
+              loading="lazy"
+            />
+            <div class="chapter-copy">
+              <strong>Harvest Time</strong>
+              <figcaption>The story ends with full baskets and a day well spent.</figcaption>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-intro">
+          <span class="kicker">Full Comic</span>
+          <h2>Complete gallery</h2>
+          <p>
+            All panels are shown below in order, optimized for desktop and mobile.
+          </p>
+        </div>
+
+        <div class="comic-strip">
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-02.jpeg" alt="Sleeping at dawn." loading="lazy" />
+            <figcaption>1. Dawn inside the cottage.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-01.jpeg" alt="Breakfast together." loading="lazy" />
+            <figcaption>2. Breakfast and warm conversation.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-03.jpeg" alt="Packing for the trip." loading="lazy" />
+            <figcaption>3. Food and supplies for the road.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-04.jpeg" alt="Walking toward the farm." loading="lazy" />
+            <figcaption>4. The walk toward the farm begins.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-05.jpeg" alt="Arrival at the farm and tractor." loading="lazy" />
+            <figcaption>5. Arrival, introductions, and the first tractor reveal.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-06.jpeg" alt="A tractor ride together." loading="lazy" />
+            <figcaption>6. Riding together through the farm.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-07.jpeg" alt="Honking the horn and laughing." loading="lazy" />
+            <figcaption>7. Horns, chickens, and a lot of laughter.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-08.jpeg" alt="Mr. Pinpin steering the tractor." loading="lazy" />
+            <figcaption>8. Mr. Pinpin learns to steer.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-09.jpeg" alt="Feeding animals from the tractor." loading="lazy" />
+            <figcaption>9. Breakfast for the farm animals.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-10.jpeg" alt="Helping vegetables grow with a sparkly wand." loading="lazy" />
+            <figcaption>10. A magical nudge for the garden.</figcaption>
+          </figure>
+          <figure class="strip-card">
+            <img src="assets/images/mr-pinpin-11.jpeg" alt="Carrying a harvest basket." loading="lazy" />
+            <figcaption>11. Harvest time and a full basket home.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <p class="footer">
+        Static HTML site for GitHub Pages, with local assets only.
+      </p>
+    </main>
+  </body>
+</html>
